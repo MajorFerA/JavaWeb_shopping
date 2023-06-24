@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shopping.dao.ShoppingDao">
+    <select id="selectShoppingById" resultType="com.shopping.entity.Shopping" parameterType="int">
+        SELECT shopping.id        as id,
+               shopping.gid       as gid,
+               shopping.num       as num,
+               g.info             as goodname,
+               g.img              as img,
+               g.price            as price,
+               sum(g.price * num) as total
+        from shopping,
+             good g
+        WHERE shopping.gid = g.gid
+          and uid = #{id}
+        GROUP BY shopping.id desc;
+    </select>
+
+</mapper>

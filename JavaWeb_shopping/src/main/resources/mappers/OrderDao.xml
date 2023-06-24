@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shopping.dao.OrderDao">
+    <select id="selectOrderById" resultType="com.shopping.entity.Order" parameterType="int">
+        SELECT orders.id  as id,
+               orders.gid as gid,
+               orders.time as time ,
+               orders.price  as price ,
+               orders.status as status,
+               orders.num    as num ,
+               orders.total  as total,
+               orders.receiver as receiver,
+               orders.phone  as phone ,
+               orders.shippingaddr as shippingaddr,
+               orders.ostate as ostate,
+               orders.score  as score,
+               orders.evaluation as evaluation ,
+               orders.evaluatetime as evaluatetime,
+               g.info        as goodname,
+               g.img         as img
+        from orders, good g
+        WHERE orders.gid = g.gid and uid =#{id}
+        GROUP BY orders.id desc;
+    </select>
+
+</mapper>
